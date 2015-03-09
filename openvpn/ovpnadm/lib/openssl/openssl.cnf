@@ -41,12 +41,12 @@ database	= $dir/index.txt		# database index file.
 						# several ctificates with same subject.
 new_certs_dir	= $dir/newcerts			# default place for new certs.
 
-certificate	= $dir/private/calcc.pem 	# The CA certificate
+certificate	= $dir/certs/ca.cert.pem 	# The CA certificate
 serial		= $dir/serial 			# The current serial number
 #crlnumber	= $dir/crlnumber		# the current crl number must be
 						# commented out to leave a V1 CRL
 crl		= $dir/crl.pem 			# The current CRL
-private_key	= $dir/private/calcckey.pem	# The private key
+private_key	= $dir/private/ca.key.pem	# The private key
 RANDFILE	= $dir/private/.rand		# private random number file
 
 #x509_extensions	= x509v3_extensions		# The extentions to add to the cert
