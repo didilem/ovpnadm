@@ -27,8 +27,8 @@ assigned to network groups which again can be assigned to the clients you create
 Clients will be added over the interface and their openssl cert provided as ovpn config
 files to the administrator for distribution to the client. 
 Second part of the suite is the verify script for openvpn server which will check against 
-the database if clients are in a active state and if so creates the network settings on 
-fly for the specific client. 
+the database if clients are in an active state and if so creates the network settings on 
+the fly for the specific client. 
 In case that you have multiple instances of VPN servers they can all connect to the central 
 ovpnadm server to authorize client access. 
 
@@ -74,7 +74,7 @@ Depending on you preferences you can either link your Document root to the folde
 </Directory>
 ```
 
-Open index.pl in the www folder in you favorite editor and make sure that the library path point to the main library 
+Open index.pl in the www folder in you favorite editor and make sure that the library path points to the main library 
 of this application. 
 
 ```
@@ -115,8 +115,8 @@ In a later release we will implement a global configuration file to edit this in
 ### mysql setup
 create the required database with the supplied file create_ovpnadm.sql
 
-### Start adding configuration
-point your browser to you web server, add networks, groups and clients. 
+### Start adding vpn configuration
+point your browser to your web server, add networks, groups and clients. 
 
 
 
