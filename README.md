@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with OpenVPN Admin if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-## ovpnadm web based openVPN Administration overview
+## Web based openVPN Administration overview
 
 The goal of this perl project is to provide an easy web based administration of connected
 networks, clients and to where those clients have access to. 
