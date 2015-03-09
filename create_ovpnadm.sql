@@ -16,6 +16,22 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `clientlogin`
+--
+
+DROP TABLE IF EXISTS `clientlogin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clientlogin` (
+  `cid` int(11) NOT NULL DEFAULT '0',
+  `login` timestamp NULL DEFAULT NULL,
+  `state` enum('y','n') DEFAULT NULL,
+  KEY `cid` (`cid`),
+  KEY `login` (`login`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='utf8_general_ci';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `clients`
 --
 
@@ -112,4 +128,4 @@ CREATE TABLE `networks` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-09 10:57:25
+-- Dump completed on 2015-03-09 15:20:19
