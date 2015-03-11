@@ -32,7 +32,7 @@ my %para = (
 	tmpDir => '/tmp',
 	baseDir => '/etc/openvpn/ovpnadm/lib/openssl',
 	cnf => 'openssl.cnf',
-	cacert => 'certs/calcc.crt',
+	cacert => 'certs/ca.cert.pem',
 	crl => 'crl.pem',
 	crltmp => 'crltmp.pem',
 );
