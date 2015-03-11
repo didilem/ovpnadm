@@ -87,11 +87,11 @@ while (my @rec = $sth->fetchrow_array) {
 print CCD <<EOF;
 push "dhcp-option DNS 192.168.66.6"
 push "dhcp-option DNS 192.168.67.1"
-push "dhcp-option DOMAIN kmk.ch"
+push "dhcp-option DOMAIN yourdomain.com"
 push "dhcp-option WINS 192.168.66.6"
 EOF
 
 close(CCD);
 
-# No valid cert
+# valid cert
 exit 0;
