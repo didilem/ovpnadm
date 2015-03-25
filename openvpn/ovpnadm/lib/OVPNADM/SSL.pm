@@ -214,7 +214,7 @@ sub create_client_cert {
 	my $req = shift;
 
 	my $ssl = "$para{'shell'} req " .
-			($req->{NODE} ? '-nodes ':"-passout pass:$req->{PASS} ") .
+			($req->{NODE} ? '-nodes ':"-passout pass:'$req->{PASS}' ") .
 			'-rand /proc/interrupts:/proc/net/rt_cache ' .
 			'-newkey rsa:2048 -sha256 ' .
 			"-keyout '$para{'baseDir'}/test-certs/$req->{EMAIL}.key.pem' " .
@@ -275,7 +275,7 @@ sub verifyCerts {
 
 		unless ($?) { # the key already carries a passphrase
 			# add the provided passphrase to the key
-	    	open (KEY, "$para{'shell'} rsa -in $key -passin pass: -passout pass:$pass -des3 -out $key|") || die;
+	    	open (KEY, "$para{'shell'} rsa -in $key -passin pass: -passout pass:'$pass' -des3 -out $key|") || die;
 	    	while(<KEY>) {
 				$mkey = $_;
 			} 
@@ -286,7 +286,7 @@ sub verifyCerts {
 			}
 		}
 	}
-	open (KEY, "$para{'shell'} rsa -noout -modulus -passin pass:$pass -in $key |") || die;
+	open (KEY, "$para{'shell'} rsa -noout -modulus -passin pass:'$pass' -in $key |") || die;
 	while(<KEY>) {
 		$mkey = $_;
 	} 
