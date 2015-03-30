@@ -81,36 +81,30 @@ of this application.
 push @INC, '/etc/openvpn/ovpnadm/lib';
 ```
 
-and the database connection
-
-```
-my $dbh = DBI->connect(
-    "dbi:mysql:dbname=ovpn-admin",
-    "dbuser", "password",
-     {RaiseError => 0, PrintError => 1, mysql_enable_utf8 => 1}
- ) or die "Connect to database failed.";
-```
-
-change dbuser and password to match your setup. 
-
 ### setup openvpn 
 Link or copy the contents of the folder openvpn to /etc/openvpn. Edit ovpnadm-udp.conf to match your environment. 
 
 ### alter configuration of ovpnadm 
-Edit client.pm under OVPNADM and change the settings do match your organization.
+Edit OVPNADM::config.pm under the above library path and change the settings to match your organization and database connection.
+
 ```
-sub addClient {
-        my $self = shift;
-        if (!$self->{POST}) {
-                $self->{FIELDS}->{country} = 'CH';
-                $self->{FIELDS}->{state} = 'Zug';
-                $self->{FIELDS}->{loc} = 'Huenenberg';
-                $self->{FIELDS}->{orga} = 'My Company';
-                $self->{FIELDS}->{orgaunit} = '';
-        }
+our $SSL = {
+   'country' => 'CH',
+   'state' => 'Zug',
+   'loc' => 'Huenenberg',
+   'orga' => 'My Company',
+   'orgaunit' => '',
+   };
+
+our $DBH = {
+   'db' => 'ovpn-admin',
+   'user' => 'dbuser',
+   'pass' => 'password',
+   'host' => '127.0.0.1'
+   };
 ```
 Alter the values for country, state, loc, orga, orgaunit which correspond to C, ST, L, O, OU of openssl.
-In a later release we will implement a global configuration file to edit this in one place.
+
 
 ### mysql setup
 create the required database with the supplied file create_ovpnadm.sql

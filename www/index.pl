@@ -36,6 +36,7 @@ use Capture::Tiny qw/capture/;
 
 use HtmlRequest;
 use Post;
+use OVPNADM::config;
 use OVPNADM::header;
 use OVPNADM::network;
 use OVPNADM::client;
@@ -43,8 +44,8 @@ use OVPNADM::client;
 use DBI;
 
 my $dbh = DBI->connect(
-    "dbi:mysql:dbname=ovpn-admin", 
-    "dbuser", "password",
+    "dbi:mysql:dbname=$DBH->{'db'};host=$DBH->{'host'}", 
+    "$DBH->{'user'}", "$DBH->{'pass'}",
      {RaiseError => 0, PrintError => 1, mysql_enable_utf8 => 1}
  ) or die "Connect to database failed.";
 

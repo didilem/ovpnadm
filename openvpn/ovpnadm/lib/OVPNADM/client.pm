@@ -19,6 +19,7 @@ package OVPNADM::clients;
 #
 
 use strict;
+use OVPNADM::config;
 use OVPNADM::SSL;
 use OVPNADM::network;
 use Capture::Tiny qw/capture/;
@@ -100,11 +101,11 @@ EOF
 sub addClient {
 	my $self = shift;
 	if (!$self->{POST}) {
-		$self->{FIELDS}->{country} = 'CH';
-		$self->{FIELDS}->{state} = 'Zug';
-		$self->{FIELDS}->{loc} = 'Huenenberg';
-		$self->{FIELDS}->{orga} = 'My Company';
-		$self->{FIELDS}->{orgaunit} = '';
+		$self->{FIELDS}->{country} = $SSL->{'country'};
+		$self->{FIELDS}->{state} = $SSL->{'state'};
+		$self->{FIELDS}->{loc} = $SSL->{'loc'};
+		$self->{FIELDS}->{orga} = $SSL->{'orga'};
+		$self->{FIELDS}->{orgaunit} = $SSL->{'orgaunit'};
 	}
 	my $res = <<EOF;
 <div class="title">Add New Client</div>
