@@ -44,7 +44,7 @@ use DBI;
 
 my $dbh = DBI->connect(
     "dbi:mysql:dbname=ovpn-admin", 
-    "root", "mx2.lan.ch",
+    "dbuser", "password",
      {RaiseError => 0, PrintError => 1, mysql_enable_utf8 => 1}
  ) or die "Connect to database failed.";
 
