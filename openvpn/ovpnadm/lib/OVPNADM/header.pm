@@ -60,6 +60,10 @@ sub head {
 	<script type="text/javascript" src="/js/spin.js"></script>
 	<script type="text/javascript" src="/js/lib.js"></script>
 	<script type="text/javascript" src="/js/printThis.js"></script>
+  <style type="text/css">\@import url(jscalendar/calendar-blue.css);</style>
+  <script type="text/javascript" src="jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="jscalendar/calendar-setup.js"></script>
 </head>
 <body>
   <div id="container">

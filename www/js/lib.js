@@ -1,5 +1,10 @@
 var activeEdit = '';
 
+function clearDate (id) {
+  var field = $('#' + id);
+  field.val('');
+}
+
 function uploadForm(form,callBack,to)
 {
    if (!to) to = 'dataContainer';

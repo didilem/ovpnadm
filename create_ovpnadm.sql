@@ -52,6 +52,8 @@ CREATE TABLE `clients` (
   `active` enum('y','n') DEFAULT 'y',
   `cert` text,
   `certkey` text,
+  `reminder` datetime,
+  `comment` varchar(255),
   PRIMARY KEY (`clients_id`),
   KEY `subject` (`subject`),
   KEY `email` (`email`),

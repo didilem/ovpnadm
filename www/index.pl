@@ -220,6 +220,7 @@ sub check_input {
 
 sub xmlsave {
    my $value = shift;
+   return $value;
    $value =~ s/&/&amp;/g;
    $value =~ s/</&lt;/g;
    $value =~ s/>/&gt;/g;

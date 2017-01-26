@@ -148,6 +148,11 @@ EOF
 <div class="input"><input name="email" value="$self->{FIELDS}->{email}" /></div>
 <div class="label$self->{errpass}">Pass Phrase</div>
 <div class="input"><input name="pass" value="$self->{FIELDS}->{pass}" /></div>
+<div class="label$self->{errdate} input-group date" id="expire">Reminder Date</div>
+<div class="input"><input id="expired" name="date" value="$self->{FIELDS}->{date}" class="form-control" readonly="true"/>
+<button id="trigger">...</button><button id="clear" onclick="clearDate('expired'); return false;">X</button></div>
+<div class="label$self->{errcomment}">Comment</div>
+<div class="input"><input name="comment" value="$self->{FIELDS}->{comment}" /></div>
 <div class="label$self->{errnode}">Node Client</div>
 <div class="input"><input type="checkbox" name="node"$node/></div>
 <div style="clear: left"></div>
@@ -155,6 +160,15 @@ EOF
 	onclick="addNet(\'addClient\')">Add Client</div>
 <div style="clear: left"></div>
 </form>
+<script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField  : "expired",       // ID of the input field
+      ifFormat    : "%Y-%m-%d",    // the date format
+      button      : "trigger"       // ID of the button
+    }
+  );
+</script>
 EOF
 }
 
@@ -257,7 +271,7 @@ sub formatList {
  sub getClients {
  	my $self = shift;
  	my $id = shift;
- 	my $sth = $self->{DBH}->prepare("SELECT clients_id,subject,cname,email,active FROM clients ORDER by cname,subject");
+ 	my $sth = $self->{DBH}->prepare("SELECT clients_id,subject,cname,email,active,DATE_FORMAT(reminder,'%Y-%m-%d'),comment FROM clients ORDER by cname,subject");
  	$sth->execute();
  	if ($sth->rows) {
  		while (my @rec = $sth->fetchrow_array) {
@@ -455,16 +469,16 @@ sub addCert {
 	my $self = shift;
 	my $c = $self->{CERT};
 	my $sth = $self->{DBH}->prepare("INSERT INTO clients (clients_id,subject,country,state,orga,orgunit," .
-		"cname,email,pass,serial,active,cert,certkey) VALUES (0,?,?,?,?,?,?,?,?,?,'y',?,?)");
+		"cname,email,pass,serial,active,cert,certkey,reminder,comment) VALUES (0,?,?,?,?,?,?,?,?,?,'y',?,?)");
 	$sth->execute($c->{SUBJECT},$c->{C},$c->{ST},$c->{O},$c->{OU},$c->{CN},$c->{emailAddress},
-		$self->{FIELDS}->{pass},$c->{SERIAL},$c->{TEXT},$c->{KEY});
+		$self->{FIELDS}->{pass},$c->{SERIAL},$c->{TEXT},$c->{KEY},$self->{FIELDS}->{date},$self->{FIELDS}->{comment});
 	$sth->{mysql_insertid};
 }
 
 sub getClient {
 	my $self = shift;
 	my $id = shift;
-	my $sth = $self->{DBH}->prepare("SELECT clients_id,subject,cname,email,active,grpid FROM clients " .
+	my $sth = $self->{DBH}->prepare("SELECT clients_id,subject,cname,email,active,grpid,DATE_FORMAT(reminder,'%Y-%m-%d'),comment FROM clients " .
 		"LEFT JOIN clients2groups ON clients_id = cid WHERE clients_id = ?");
 	$sth->execute($id);
 	if ($sth->rows) {
@@ -475,8 +489,8 @@ sub getClient {
 
 sub updateClient {
 	my $self = shift;
-	my $sth = $self->{DBH}->prepare("UPDATE clients SET active = ? WHERE clients_id = ?");
-	$sth->execute(($self->{FIELDS}->{active} ? 'y':'n'), $self->{FIELDS}->{manage});
+	my $sth = $self->{DBH}->prepare("UPDATE clients SET active = ?,reminder = ?,comment = ? WHERE clients_id = ?");
+	$sth->execute(($self->{FIELDS}->{active} ? 'y':'n'), $self->{FIELDS}->{date}, $self->{FIELDS}->{comment}, $self->{FIELDS}->{manage});
 	$sth = $self->{DBH}->prepare("DELETE FROM clients2groups WHERE cid = ?");
 	$sth->execute($self->{FIELDS}{manage});
 	$self->insertClient2Group($self->{FIELDS}{manage});
@@ -586,7 +600,11 @@ if ($login[0]) {
 <div class="beforeSelect"></div>
 <div class="label$self->{erractive}">VPN Active: 
 <input type="checkbox" name="active" value="y"$active/></div>
-
+<div class="label$self->{errdate} input-group date" id="expire$formid">Reminder Date</div>
+<div class="input"><input id="expired$formid" name="date" value="$client->[6]" class="form-control" readonly="true"/>
+<button id="trigger$formid">...</button><button id="clear" onclick="clearDate('expired$formid'); return false;">X</button></div>
+<div class="label$self->{errcomment}">Comment</div>
+<div class="input"><input name="comment" value="$client->[7]" /></div>
 <div style="clear: left"></div>
 <div style="float: left;" class="button" 
 	onclick="$action">Update Client</div> 
@@ -597,6 +615,15 @@ if ($login[0]) {
 <div style="clear: left"></div>
 <div class="exportClient" id="exportClient_$client->[0]"></div>
 </form>
+<script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField  : "expired$formid", // ID of the input field
+      ifFormat    : "%Y-%m-%d",    // the date format
+      button      : "trigger$formid"       // ID of the button
+    }
+  );
+</script>
 EOF
 }
 
