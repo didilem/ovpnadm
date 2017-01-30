@@ -90,8 +90,7 @@ if ($r->method =~ /get|head/i) {
          $r->content($client->listClients());
       }    
    } else {
-      my $client = OVPNADM::clients->new($fields,$dbh);
-      $r->content($client->listClients());
+      $r->redirect('/?action=clients&sub=2_list');
    }
    $header->foot();
 } elsif ($r->method =~ /post/i) {

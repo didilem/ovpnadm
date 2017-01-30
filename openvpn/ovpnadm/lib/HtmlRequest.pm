@@ -53,6 +53,16 @@ sub new {
     return $self;
 }
 
+sub redirect {
+   my $self = shift;
+   my ($rl) = shift;
+   # Redirect the client to new location
+   $self->header_out('Location',"$rl");
+   $self->content_type('text/html; charset=utf-8');
+   return 1;
+}
+
+
 sub multiform {
    my $self = shift;
    return $self->{MultiForm};
